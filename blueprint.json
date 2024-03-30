@@ -1,10 +1,10 @@
 {
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"landingPage": "/wp-admin/edit.php?post_type=doc_page",
-    "preferredVersions": {
-        "wp": "6.4",
-        "php": "7.4"
-    },
+	"preferredVersions": {
+		"wp": "6.4",
+		"php": "7.4"
+	},
 	"steps": [
 		{
 			"step": "mkdir",
