@@ -1,0 +1,44 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/wp-admin/edit.php?post_type=doc_page",
+    "preferredVersions": {
+        "wordpress": "6.4",
+        "php": "7.4"
+    },
+	"steps": [
+		{
+			"step": "mkdir",
+			"path": "/wordpress/wp-content/docs"
+		},
+		{
+			"step": "login"
+		},
+		{
+			"step": "unzip",
+			"zipFile": {
+				"resource": "url",
+				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/packages/docs/site/docs"
+			},
+			"extractToPath": "/wordpress/wp-content/docs"
+		},
+		{
+			"step": "defineWpConfigConsts",
+			"consts": {
+				"HTML_PAGES_PATH": "/wordpress/wp-content/docs"
+			}
+		},
+		{
+			"step": "unzip",
+			"zipFile": {
+				"resource": "url",
+				"url": "https://github-proxy.com/partial/WordPress/wordpress-playground/packages/docs/site/docs"
+			},
+			"extractToPath": "/wordpress/wp-content/plugins/wp-docs-plugin"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "docs-pages/plugin.php",
+			"pluginName": "Docs Pages"
+		}
+	]
+}
