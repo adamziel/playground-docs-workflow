@@ -17,7 +17,7 @@
 			"step": "unzip",
 			"zipFile": {
 				"resource": "url",
-				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/packages/docs/site/docs"
+				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/html-pages"
 			},
 			"extractToPath": "/wordpress/wp-content/docs"
 		},
@@ -28,17 +28,11 @@
 			}
 		},
 		{
-			"step": "unzip",
-			"zipFile": {
+			"step": "installPlugin",
+			"pluginZipFile": {
 				"resource": "url",
-				"url": "https://github-proxy.com/partial/WordPress/wordpress-playground/packages/docs/site/docs"
-			},
-			"extractToPath": "/wordpress/wp-content/plugins/wp-docs-plugin"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginPath": "docs-pages/plugin.php",
-			"pluginName": "Docs Pages"
+				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-docs-plugin"
+			}
 		}
 	]
 }
