@@ -10,7 +10,7 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 
 It's a work in progress and the GitHub integration is not fully implemented yet.
 
-[<kbd> <br>Try the latest version<br> </kbd>](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/adamziel/playground-docs-workflow/trunk/blueprint.json). 
+[<kbd> <br>Try the latest version<br> </kbd>](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/adamziel/playground-docs-workflow/trunk/wp-docs-plugin/blueprint.json). 
 
 It should load the doc pages from the `html-pages` directory.
 
