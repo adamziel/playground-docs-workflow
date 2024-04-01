@@ -6,6 +6,9 @@
 		"php": "7.4"
 	},
 	"login": true,
+	"constants": {
+		
+	},
 	"steps": [
 		{
 			"step": "unzip",
@@ -13,7 +16,7 @@
 				"resource": "url",
 				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content"
 			},
-			"extractToPath": "/wordpress/wp-content"
+			"extractToPath": "/wordpress"
 		},
 		{
 			"step": "activatePlugin",

@@ -9,7 +9,7 @@ License: GPL2
 */
 
 if (!defined('HTML_PAGES_PATH')) {
-    define('HTML_PAGES_PATH', __DIR__ . '/html-pages');
+    define('HTML_PAGES_PATH', WP_CONTENT_DIR . '/html-pages');
 }
 
 require_once __DIR__ . '/playground-post-export-processor.php';
