@@ -9,7 +9,10 @@
 	"steps": [
 		{
 			"step": "unzip",
-			"zipFile": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content",
+			"zipFile": {
+				"resource": "url",
+				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content"
+			},
 			"extractToPath": "/wordpress/wp-content"
 		},
 		{
