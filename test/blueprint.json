@@ -1,0 +1,23 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/wp-admin/edit.php?post_type=doc_page",
+	"preferredVersions": {
+		"wp": "6.4",
+		"php": "7.4"
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "unzip",
+			"zipFile": {
+				"resource": "url",
+				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content"
+			},
+			"extractToPath": "/wordpress"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "wp-docs-plugin/plugin.php"
+		}
+	]
+}
