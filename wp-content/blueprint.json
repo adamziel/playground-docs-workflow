@@ -6,9 +6,6 @@
 		"php": "7.4"
 	},
 	"login": true,
-	"constants": {
-		
-	},
 	"steps": [
 		{
 			"step": "unzip",
