@@ -366,7 +366,8 @@ function create_db_media_files_from_uploads() {
 
     foreach ($mediaFiles as $name => $file) {
         /** @var SplFileInfo $file */
-        if($file->getFilename() === '.gitkeep') {
+        $filename = $file->getFilename();
+        if($filename === '.gitkeep') {
             continue;
         }
         if (!$file->isDir()) {
@@ -379,6 +380,10 @@ function create_db_media_files_from_uploads() {
                 'post_content'   => '',
                 'post_status'    => 'inherit',
             );
+            if(preg_match('/^(\d+)_/', $filename, $matches)) {
+                $attachmentId = $matches[1];
+                $attachment['import_id'] = $attachmentId;
+            }
             $attachmentId = wp_insert_attachment($attachment, $filePath);
             if (!is_wp_error($attachmentId)) {
                 require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -427,3 +432,28 @@ function naive_mime_content_type($path) {
             return 'application/octet-stream';
     }
 }
+
+/**
+ * The image block stores the attachment ID so we need
+ * to preserve it in the export. Let's prepend it to the
+ * filename so that we can restore it later.
+ * 
+ * @param mixed $file
+ * @return mixed
+ */
+function rename_uploaded_file($attachment_id) {
+    // Do not rename the attachments when importing.
+    if (!get_option('docs_populated')) {
+        return;
+    }
+    $file = get_attached_file($attachment_id);
+    $path = pathinfo($file);
+       
+    // new filename structure here
+    $newfilename = $attachment_id . "_" . $path['filename'];
+    $newfile = $path['dirname']."/".$newfilename.".".$path['extension'];
+   
+    rename($file, $newfile);    
+    update_attached_file($attachment_id, $newfile);
+}
+add_action('add_attachment', 'rename_uploaded_file');
