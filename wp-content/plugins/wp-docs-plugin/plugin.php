@@ -228,14 +228,20 @@ function create_db_doc_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
     }
 
     // Insert the content as a WordPress doc_page
-    return wp_insert_post(array(
-        'post_title'    => $title,
-        'post_content'  => $content,
-        'post_status'   => 'publish',
-        'post_author'   => get_current_user_id(),
-        'post_type'     => 'doc_page',
-        'post_parent'   => $parent_id,
-    ));
+    $post_data = array(
+        'post_title' => $title,
+        'post_content' => $content,
+        'post_status' => 'publish',
+        'post_author' => get_current_user_id(),
+        'post_type' => 'doc_page',
+        'post_parent' => $parent_id,
+    );
+
+    if(preg_match('/^(\d+)_/', $file->getFilename(), $matches)) {
+        $post_data['menu_order'] = $matches[1];
+    }
+    
+    return wp_insert_post($post_data);
 }
 
 function delete_db_doc_pages() {
@@ -272,7 +278,9 @@ function save_db_doc_pages_as_html($path, $parent_id = 0) {
         while ($pages->have_posts()) {
             $pages->the_post();
             $page_id = get_the_ID();
+            $page = get_post($page_id);
             $title = sanitize_title(get_the_title());
+            
             $content = '<h1>' . esc_html(get_the_title()) . "</h1>\n\n" . get_the_content();
             // Replace current site URL with a placeholder URL for the export.
             // @TODO: This is very naive, let's actually parse the block 
@@ -291,14 +299,14 @@ function save_db_doc_pages_as_html($path, $parent_id = 0) {
             }
 
             if (!empty($child_pages)) {
-                $new_parent = $path . '/' . $title;
+                $new_parent = $path . '/' . $page->menu_order . '_' . $title;
                 if (!file_exists($new_parent)) {
                     mkdir($new_parent, 0777, true);
                 }
                 file_put_contents($new_parent . '/index.html', $content);
                 save_db_doc_pages_as_html($new_parent, $page_id);
             } else {
-                file_put_contents($path . '/' . $title . '.html', $content);
+                file_put_contents($path . '/' . $page->menu_order . '_' . $title . '.html', $content);
             }
         }
     }
