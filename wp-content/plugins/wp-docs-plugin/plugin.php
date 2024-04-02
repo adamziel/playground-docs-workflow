@@ -12,6 +12,11 @@ if (!defined('HTML_PAGES_PATH')) {
     define('HTML_PAGES_PATH', WP_CONTENT_DIR . '/html-pages');
 }
 
+/**
+ * Placeholder site URL to be used in the exported HTML files.
+ */
+define('DOCS_INTERNAL_SITE_URL', 'https://playground.internal');
+
 require_once __DIR__ . '/playground-post-export-processor.php';
 
 add_action('init', function () {
@@ -53,10 +58,7 @@ function initialize_docs_plugin() {
         return;
     }
 
-    delete_db_doc_pages(HTML_PAGES_PATH);
-	create_db_doc_pages_from_html_files(HTML_PAGES_PATH);
-
-    update_option('docs_populated', true);
+    doc_pages_reinitialize_content();
 }
 
 add_action('admin_menu', function () {
@@ -91,10 +93,7 @@ add_action('admin_init', function () {
         return download_docs_callback();
     }
     if (isset($_GET['page']) && $_GET['page'] === 'recreate_db_doc_pages_from_disk') {
-        update_option('docs_populated', false);
-        delete_db_doc_pages(HTML_PAGES_PATH);
-        create_db_doc_pages_from_html_files(HTML_PAGES_PATH);
-        update_option('docs_populated', true);
+        doc_pages_reinitialize_content();
 
         // Display admin notice
         add_action('admin_notices', function () {
@@ -102,6 +101,21 @@ add_action('admin_init', function () {
         });
     }
 });
+
+function doc_pages_reinitialize_content() {
+    update_option('docs_populated', false);
+
+    delete_db_doc_pages(HTML_PAGES_PATH);
+	create_db_doc_pages_from_html_files(HTML_PAGES_PATH);
+    delete_db_attachments();
+    create_db_media_files_from_uploads();
+
+    update_option('docs_populated', true);
+}
+
+/**
+ * Doc pages functions
+ */
 
 function download_docs_callback() {
     // Create a zip file of the HTML_PAGES_PATH directory
@@ -137,7 +151,6 @@ function download_docs_callback() {
 
     exit;
 }
-
 
 /**
  * Recreate the entire file structure when any post is saved.
@@ -200,6 +213,16 @@ function create_db_doc_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
         // we need to trim the content or else we'll start accumulating leading
         // newlines.
         $content = trim($p->get_updated_html());
+        // Replace placeholder site URLs with the URL of the current site.
+        // @TODO: This is very naive, let's actually parse the block 
+        //        markup and the HTML markup and make these replacements
+        //        in the JSON and HTML attributes structures, not just in
+        //        their textual representation.
+        $content = str_replace(
+            DOCS_INTERNAL_SITE_URL,
+            get_site_url(),
+            $content
+        );
     } else {
         $title = $file->getBasename('.html');
     }
@@ -251,6 +274,16 @@ function save_db_doc_pages_as_html($path, $parent_id = 0) {
             $page_id = get_the_ID();
             $title = sanitize_title(get_the_title());
             $content = '<h1>' . esc_html(get_the_title()) . "</h1>\n\n" . get_the_content();
+            // Replace current site URL with a placeholder URL for the export.
+            // @TODO: This is very naive, let's actually parse the block 
+            //        markup and the HTML markup and make these replacements
+            //        in the JSON and HTML attributes structures, not just in
+            //        their textual representation.
+            $content = str_replace(
+                get_site_url(),
+                DOCS_INTERNAL_SITE_URL,
+                $content
+            );
             $child_pages = get_pages(array('child_of' => $page_id, 'post_type' => 'doc_page'));
 
             if (!file_exists($path)) {
@@ -285,5 +318,112 @@ function docs_plugin_deltree($path) {
         } else if($file->isFile()) {
             unlink($file->getRealPath());
         }
+    }
+}
+
+/**
+ * Media attachments
+ */
+
+function delete_db_attachments() {
+    $args = array(
+        'post_type'      => 'attachment',
+        'posts_per_page' => -1,
+        'post_status'    => 'any',
+    );
+    $attachments = new WP_Query($args);
+
+    add_filter('wp_delete_file', 'keep_media_file'); 
+    if ($attachments->have_posts()) {
+        while ($attachments->have_posts()) {
+            $attachments->the_post();
+            wp_delete_post(get_the_ID(), true);
+        }
+    }
+    remove_filter('wp_delete_file', 'keep_media_file');
+    wp_reset_postdata();
+}
+
+/**
+ * Set this as a wp_delete_file filter to prevent
+ * media files on the fisk from being deleted when
+ * their corresponding database records are deleted.
+ */
+function keep_media_file($file) {
+    // This function does nothing, it's just a dummy function.
+    return '';
+}
+
+function create_db_media_files_from_uploads() {
+    $uploads = wp_upload_dir();
+    $uploadsDir = $uploads['basedir'];
+    $uploadsUrl = $uploads['baseurl'];
+
+    $mediaFiles = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($uploadsDir),
+        RecursiveIteratorIterator::LEAVES_ONLY
+    );
+
+    foreach ($mediaFiles as $name => $file) {
+        /** @var SplFileInfo $file */
+        if($file->getFilename() === '.gitkeep') {
+            continue;
+        }
+        if (!$file->isDir()) {
+            $filePath = $file->getRealPath();
+            $relativePath = substr($filePath, strlen($uploadsDir) + 1);
+            $attachment = array(
+                'guid'           => $uploadsUrl . '/' . $relativePath,
+                'post_mime_type' => naive_mime_content_type($filePath),
+                'post_title'     => pathinfo($filePath, PATHINFO_FILENAME),
+                'post_content'   => '',
+                'post_status'    => 'inherit',
+            );
+            $attachmentId = wp_insert_attachment($attachment, $filePath);
+            if (!is_wp_error($attachmentId)) {
+                require_once ABSPATH . 'wp-admin/includes/image.php';
+                $attachmentData = wp_generate_attachment_metadata($attachmentId, $filePath);
+                wp_update_attachment_metadata($attachmentId, $attachmentData);
+            }
+        }
+    }
+}
+
+// Don't generate thumbnails for images for now
+// so that the restore function has an easier job.
+// @TODO: Implement thumbnails export/import
+add_filter( 'intermediate_image_sizes_advanced', 'disable_image_sizes' );
+
+function disable_image_sizes ($sizes){
+	unset( $sizes['thumbnail'] );    // Disable Thumbnail (150 x 150 hard cropped)
+	unset( $sizes['medium'] );       // Disable Medium resolution (300 x 300 max height 300px)
+	unset( $sizes['medium_large'] ); // Disable Medium Large (added in WP 4.4) resolution (768 x 0 infinite height)
+	unset( $sizes['large'] );        // Disable Large resolution (1024 x 1024 max height 1024px)
+
+	return $sizes;
+}
+
+/**
+ * Workaround in wp-now where the finfo PHP extension
+ * is not installed yet. Let's replace this with
+ * mime_content_type once a new version is released.
+ * 
+ * @param mixed $path
+ * @return string
+ */
+function naive_mime_content_type($path) {
+    $extension = pathinfo($path, PATHINFO_EXTENSION);
+    switch ($extension) {
+        case 'jpg':
+        case 'jpeg':
+            return 'image/jpeg';
+        case 'png':
+            return 'image/png';
+        case 'gif':
+            return 'image/gif';
+        case 'pdf':
+            return 'application/pdf';
+        default:
+            return 'application/octet-stream';
     }
 }
