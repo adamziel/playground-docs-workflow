@@ -12,6 +12,18 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 
 It should load the doc pages from the `html-pages` directory and the media attachments from `uploads`.
 
+## How to use it?
+
+### In WordPress Playground
+
+https://github.com/adamziel/playground-docs-workflow/assets/205419/5d06d8b8-cd9f-4cec-a8c6-e73d66e82159
+
+### Locally
+
+Copy everything from `wp-content` into your local WordPress install, edit the docs, commit the changes back to this repo.
+
+`wp-now` workflow is on the way, but it isn't ready yet.
+
 ## Remaining work
 
 - [ ] Render a static documentation site to serve on GitHub pages. Currently the doc pages can be edited and previewed in Playground, but they are not rendered as a static site yet.
