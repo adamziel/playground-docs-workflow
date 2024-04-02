@@ -10,7 +10,7 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 
 It's a work in progress and the GitHub integration is not fully implemented yet.
 
-[<kbd> <br>Try the latest version<br> </kbd>](https://playground.wordpress.net/?gh-ensure-auth=yes&ghexport-repo-url=https%3A%2F%2Fgithub.com%2Fadamziel%2Fplayground-docs-workflow&ghexport-content-type=custom-paths&ghexport-path=plugins/wp-docs-plugin&ghexport-path=html-pages&ghexport-path=uploads&ghexport-path=blueprint.json&ghexport-commit-message=Documentation+update&ghexport-playground-root=/wordpress/wp-content&ghexport-repo-root=/wp-content&blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Fadamziel%2Fplayground-docs-workflow%2Ftrunk%2Fwp-content%2Fblueprint.json&ghexport-pr-action=create&ghexport-allow-include-zip=no&state=github-export).
+[<kbd> <br>Try the latest version<br> </kbd>](https://playground.wordpress.net/?gh-ensure-auth=yes&ghexport-repo-url=https%3A%2F%2Fgithub.com%2Fadamziel%2Fplayground-docs-workflow&ghexport-content-type=custom-paths&ghexport-path=plugins/wp-docs-plugin&ghexport-path=html-pages&ghexport-path=uploads&ghexport-path=blueprint.json&ghexport-commit-message=Documentation+update&ghexport-playground-root=/wordpress/wp-content&ghexport-repo-root=/wp-content&blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Fadamziel%2Fplayground-docs-workflow%2Ftrunk%2Fwp-content%2Fblueprint.json&ghexport-pr-action=create&ghexport-allow-include-zip=no).
 
 It should load the doc pages from the `html-pages` directory.
 
