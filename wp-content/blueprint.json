@@ -16,10 +16,6 @@
 			"extractToPath": "/wordpress"
 		},
 		{
-			"step": "runPHP",
-			"code": "<?php "
-		},
-		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
 		}
