@@ -13,7 +13,7 @@
 				"resource": "url",
 				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content"
 			},
-			"extractToPath": "/"
+			"extractToPath": "/wordpress"
 		},
 		{
 			"step": "runPHP",
