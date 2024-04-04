@@ -9,7 +9,7 @@
 	"steps": [
 		{
 			"step": "wpCli",
-			"command": "option update permalink_structure '/%postname%/'"
+			"command": "wp option update permalink_structure '/%postname%/'"
 		},
 		{
 			"step": "unzip",
