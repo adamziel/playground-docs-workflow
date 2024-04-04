@@ -111,6 +111,20 @@ function doc_pages_reinitialize_content() {
     create_db_media_files_from_uploads();
 
     update_option('docs_populated', true);
+
+    // Set homepage to the first doc page
+    $pages = new WP_Query(array(
+        'post_type'      => 'doc_page',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'orderby'        => 'menu_order',
+        'order'          => 'ASC',
+    ));
+    if ($pages->have_posts()) {
+        $pages->the_post();
+        update_option('page_on_front', get_the_ID());
+        update_option('show_on_front', 'page');
+    }
 }
 
 /**

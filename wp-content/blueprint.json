@@ -6,7 +6,8 @@
 		"php": "7.4"
 	},
 	"siteOptions": {
-		"permalink_structure": "/%postname%/"
+		"permalink_structure": "/%postname%/",
+		"blogname": "WordPress Playground Docs"
 	},
 	"login": true,
 	"steps": [
