@@ -20,14 +20,6 @@
 			}
 		},
 		{
-			"step": "unzip",
-			"zipFile": {
-				"resource": "url",
-				"url": "https://github-proxy.com/partial/adamziel/playground-docs-workflow/wp-content"
-			},
-			"extractToPath": "/wordpress"
-		},
-		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
 		}

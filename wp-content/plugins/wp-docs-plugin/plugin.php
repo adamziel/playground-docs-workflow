@@ -103,6 +103,7 @@ function set_homepage_to_first_doc_page() {
         update_option('page_on_front', get_the_ID());
         update_option('show_on_front', 'page');
     }
+    wp_reset_postdata();
 }
 
 function generate_pages_json() {
@@ -117,6 +118,7 @@ function generate_pages_json() {
         $pages->the_post();
         $pagesJson[] = get_permalink();
     }
+    wp_reset_postdata();
 
     file_put_contents(WP_CONTENT_DIR . '/pages.json', json_encode($pagesJson));
 }

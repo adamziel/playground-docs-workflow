@@ -5,7 +5,7 @@ const fs = require('fs');
 const wpContentPath = __dirname + '/../wp-content';
 
 // Step 1: Run npx @wp-now/wp-now@latest start --blueprint=./blueprint.json
-const childProcess = spawn('npx', ['@wp-now/wp-now@latest', 'start', '--blueprint=./blueprint.json', '--reset'], {
+const childProcess = spawn('npx', ['@wp-now/wp-now@latest', 'start', '--blueprint=./blueprint-static-site.json', '--reset'], {
     shell: true,
     cwd: wpContentPath,
     env: process.env
@@ -38,6 +38,7 @@ async function generateStaticSite(serverUrl) {
 
     // Step 4: Fetch and save each page as HTML file
     const pagesJson = await fetchUrl(`${serverUrl}/wp-content/pages.json`);
+    return;
     const pages = JSON.parse(pagesJson);
     for (const page of pages) {
         const url = `${serverUrl}${page.url}`;
