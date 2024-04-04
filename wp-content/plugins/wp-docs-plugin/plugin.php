@@ -86,6 +86,11 @@ function pages_reinitialize_content() {
     update_option('docs_populated', true);
 
     // Set homepage to the first doc page
+    set_homepage_to_first_doc_page();
+    generate_sitemap();
+}
+
+function set_homepage_to_first_doc_page() {
     $pages = new WP_Query(array(
         'post_type'      => 'page',
         'posts_per_page' => 1,
@@ -99,6 +104,33 @@ function pages_reinitialize_content() {
         update_option('show_on_front', 'page');
     }
 }
+
+function generate_sitemap() {
+    $pages = new WP_Query(array(
+        'post_type'      => 'page',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    ));
+
+    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
+    $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    while ($pages->have_posts()) {
+        $pages->the_post();
+        $permalink = get_permalink();
+        $lastmod = get_the_modified_time('Y-m-d\TH:i:sP');
+
+        $sitemap .= '<url>';
+        $sitemap .= '<loc>' . $permalink . '</loc>';
+        $sitemap .= '<lastmod>' . $lastmod . '</lastmod>';
+        $sitemap .= '</url>';
+    }
+
+    $sitemap .= '</urlset>';
+
+    file_put_contents(WP_CONTENT_DIR . '/sitemap.xml', $sitemap);
+}
+    
 
 /**
  * Doc pages functions

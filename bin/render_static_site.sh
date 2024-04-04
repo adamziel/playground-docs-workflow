@@ -1,7 +1,6 @@
 #!/bin/bash
 
+rm -rf wp-content/themes/twentytwentyfour
 cd wp-content
-npx @wp-now/wp-now@latest start --blueprint=./blueprint.json
-
+timeout 20s npx @wp-now/wp-now@latest start --blueprint=./blueprint.json
 cd ..
-npx diy-pwa build
