@@ -87,7 +87,7 @@ function pages_reinitialize_content() {
 
     // Set homepage to the first doc page
     set_homepage_to_first_doc_page();
-    generate_sitemap();
+    generate_pages_json();
 }
 
 function set_homepage_to_first_doc_page() {
@@ -105,30 +105,20 @@ function set_homepage_to_first_doc_page() {
     }
 }
 
-function generate_sitemap() {
+function generate_pages_json() {
     $pages = new WP_Query(array(
         'post_type'      => 'page',
         'posts_per_page' => -1,
         'post_status'    => 'publish',
     ));
 
-    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
-    $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-
+    $pagesJson = array();
     while ($pages->have_posts()) {
         $pages->the_post();
-        $permalink = get_permalink();
-        $lastmod = get_the_modified_time('Y-m-d\TH:i:sP');
-
-        $sitemap .= '<url>';
-        $sitemap .= '<loc>' . $permalink . '</loc>';
-        $sitemap .= '<lastmod>' . $lastmod . '</lastmod>';
-        $sitemap .= '</url>';
+        $pagesJson[] = get_permalink();
     }
 
-    $sitemap .= '</urlset>';
-
-    file_put_contents(WP_CONTENT_DIR . '/sitemap.xml', $sitemap);
+    file_put_contents(WP_CONTENT_DIR . '/pages.json', json_encode($pagesJson));
 }
     
 
