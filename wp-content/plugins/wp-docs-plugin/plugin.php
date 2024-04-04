@@ -128,7 +128,7 @@ function generate_sitemap() {
 
     $sitemap .= '</urlset>';
 
-    file_put_contents(WP_CONTENT_DIR . '/../sitemap.xml', $sitemap);
+    file_put_contents(WP_CONTENT_DIR . '/sitemap.xml', $sitemap);
 }
     
 
