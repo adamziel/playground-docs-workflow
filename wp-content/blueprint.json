@@ -5,11 +5,17 @@
 		"wp": "6.4",
 		"php": "7.4"
 	},
+	"siteOptions": {
+		"permalink_structure": "/%postname%/"
+	},
 	"login": true,
 	"steps": [
 		{
-			"step": "wpCli",
-			"command": "wp option update permalink_structure '/%postname%/'"
+			"step": "installTheme",
+			"themeZipFile": {
+				"resource": "wordpress.org/themes",
+				"slug": "twentytwentyfour"
+			}
 		},
 		{
 			"step": "unzip",
