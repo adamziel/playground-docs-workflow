@@ -8,7 +8,7 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 * Submit the changes as a pull request.
 * Provide a live preview of the documentation PR.
 
-## How to use it?
+## How to edit the documentation?
 
 ### In WordPress Playground
 
@@ -22,11 +22,23 @@ https://github.com/adamziel/playground-docs-workflow/assets/205419/5d06d8b8-cd9f
 
 ### Locally
 
-Copy everything from `wp-content` into your local WordPress install, edit the docs, commit the changes back to this repo.
+Run `start-site.sh` to start a local server with the documentation site. You'll need node.js and npm installed.
 
-`wp-now` workflow is on the way, but it isn't ready yet.
+Once you're done editing the documentation, commit your changes as follows:
+
+```bash
+git add wp-content/html-pages wp-content/uploads wp-content/themes/playground-docs
+git commit -a
+```
+
+**It is important to avoid running just `git add .` as wp-now creates a lot of files in the `wp-content` directory that you don't want to commit. This is a known issue and will be fixed in the future.**
+
+And then submit a Pull Request to the repository.
+
+## How to edit the site theme?
+
+Adjust the site as needed in the site editor and then use the preinstalled [create-block-theme](https://github.com/WordPress/create-block-theme/) plugin to [save the theme updates](https://github.com/WordPress/create-block-theme/?tab=readme-ov-file#how-to-use-the-plugin) and propose them as a PR.
 
 ## Remaining work
 
-- [ ] Render a static documentation site to serve on GitHub pages. Currently the doc pages can be edited and previewed in Playground, but they are not rendered as a static site yet.
 - [ ] Put preview links in the GitHub PRs

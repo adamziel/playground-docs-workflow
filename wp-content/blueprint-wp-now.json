@@ -15,6 +15,13 @@
 			}
 		},
 		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "create-block-theme"
+			}
+		},
+		{
 			"step": "writeFile",
 			"path": "wp-content/mu-plugins/0-docs.php",
 			"data": "<?php require __DIR__ . '/../plugins/wp-docs-plugin/plugin.php'; "
