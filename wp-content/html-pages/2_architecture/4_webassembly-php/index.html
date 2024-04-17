@@ -1,0 +1,45 @@
+<h1>WebAssembly PHP</h1>
+
+<!-- wp:paragraph -->
+<p>WordPress Playground build <a href="https://github.com/php/php-src">the PHP interpreter</a> to WebAssembly using <a href="https://emscripten.org/docs/porting/networking.html">Emscripten</a> and a <a href="https://github.com/WordPress/wordpress-playground/blob/0d451c33936a8db5b7a158fa8aad288c19370a7d/packages/php-wasm/compile/Dockerfile">dedicated pipeline</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":36,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://playground.internal/wp-content/uploads/2024/04/36_c-programs-general-dc8c885b6c55e554f0c504f32e49ad8d.png" alt="" class="wp-image-36"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Building PHP to WebAssembly is very similar to building vanilla PHP. The wasm build required <a href="https://github.com/WordPress/wordpress-playground/blob/0d451c33936a8db5b7a158fa8aad288c19370a7d/packages/php-wasm/compile/build-assets/php7.1.patch#L8-L9">adjusting a function signature here</a>, <a href="https://github.com/WordPress/wordpress-playground/blob/0d451c33936a8db5b7a158fa8aad288c19370a7d/packages/php-wasm/compile/Dockerfile#L495">forcing a config variable there</a>, and applying <a href="https://github.com/WordPress/wordpress-playground/tree/0d451c33936a8db5b7a158fa8aad288c19370a7d/packages/php-wasm/compile/build-assets">a few small patches</a>, but there's relatively few adjustments involved.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":37,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://playground.internal/wp-content/uploads/2024/04/37_c-programs-php-4a55d44329eb4e6403983664c6492f5b.png" alt="" class="wp-image-37"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>However, vanilla PHP builds aren't very useful in the browser. As a server software, PHP doesn't have a JavaScript API to pass the request body, upload files, or populate the <code>php://stdin</code> stream. WordPress Playground had to build one from scratch. The WebAssembly binary comes with a <a href="https://github.com/WordPress/wordpress-playground/blob/0d451c33936a8db5b7a158fa8aad288c19370a7d/packages/php-wasm/compile/build-assets/php_wasm.c">dedicated PHP API module</a> written in C and a <a href="https://github.com/WordPress/wordpress-playground/blob/da38192af57a95699d8731c855b82ac0222df61b/packages/php-wasm/common/src/lib/php.ts">JavaScript PHP class</a> that exposes methods like writeFile() or run().</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Because every PHP version is just a static .wasm file, the PHP version switcher is actually pretty boring. It simply tells the browser to download, for example, <code>php_7_3.wasm</code> instead of, say, <code>php_8_2.wasm</code>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image {"id":38,"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="https://playground.internal/wp-content/uploads/2024/04/38_c-programs-php-versions-d204a7325079ab708fd605a6a1d2681b.png" alt="" class="wp-image-38"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Networking support varies between platforms</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>When it comes to networking, WebAssembly programs are limited to calling JavaScript APIs. It is a safety feature, but also presents a challenge. How do you support low-level, synchronous networking code used by PHP with the high-level asynchronous APIs available in JavaScript?</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In Node.js, the answer involves a WebSocket to TCP socket proxy, <a href="https://emscripten.org/docs/porting/asyncify.html">Asyncify</a>, and patching deep PHP internals like php_select. It's complex, but there's a reward. The Node.js-targeted PHP build can request web APIs, install composer packages, and even connect to a MySQL server.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>In the browser, networking is supported to a limited extent. Network calls initiated using <code>wp_safe_remote_get</code>, like the ones in the plugin directory or the font library, are translated into <code>fetch()</code> calls and succeed if the remote server sends the correct CORS headers. However, a full support for arbitrary HTTPS connection involves opening a raw TCP socket which is not possible in the browser. There is an <a href="https://github.com/WordPress/wordpress-playground/issues/85">open GitHub issue</a> that explores possible ways of addressing this problem.</p>
+<!-- /wp:paragraph -->
