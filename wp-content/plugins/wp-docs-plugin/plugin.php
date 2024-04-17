@@ -63,6 +63,11 @@ function initialize_docs_plugin() {
     // Activating here because the activateTheme Blueprint step doesn't work
     // in wp-now :(
     switch_theme('playground-docs');
+    // Activate the gutenberg plugin and the create-block-theme plugin
+    // for the same reasons.
+    require ABSPATH . 'wp-admin/includes/plugin.php';
+    activate_plugin('gutenberg/gutenberg.php');
+    activate_plugin('create-block-theme/create-block-theme.php');
     pages_reinitialize_content();
 }
 
