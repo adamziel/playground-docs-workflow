@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name='robots' content='max-image-preview:large' />
-<title>WordPress Playground &#8211; My WordPress Website</title>
+<title>Architecture &#8211; My WordPress Website</title>
 <link rel="alternate" type="application/rss+xml" title="My WordPress Website &raquo; Feed" href="/playground-docs-workflow/feed/" />
 <link rel="alternate" type="application/rss+xml" title="My WordPress Website &raquo; Comments Feed" href="/playground-docs-workflow/comments/feed/" />
 <script>
@@ -35,6 +35,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 </style>
 <style id='wp-block-paragraph-inline-css'>
 .is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}p.has-background{padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+</style>
+<style id='wp-block-list-inline-css'>
+ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2.375em}
+
+				ul.is-style-checkmark-list {
+					list-style-type: "\2713";
+				}
+
+				ul.is-style-checkmark-list li {
+					padding-inline-start: 1ch;
+				}
+</style>
+<style id='wp-block-columns-inline-css'>
+.wp-block-columns{align-items:normal!important;box-sizing:border-box;display:flex;flex-wrap:wrap!important}@media (min-width:782px){.wp-block-columns{flex-wrap:nowrap!important}}.wp-block-columns.are-vertically-aligned-top{align-items:flex-start}.wp-block-columns.are-vertically-aligned-center{align-items:center}.wp-block-columns.are-vertically-aligned-bottom{align-items:flex-end}@media (max-width:781px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:100%!important}}@media (min-width:782px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column[style*=flex-basis]{flex-grow:0}}.wp-block-columns.is-not-stacked-on-mobile{flex-wrap:nowrap!important}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column[style*=flex-basis]{flex-grow:0}:where(.wp-block-columns){margin-bottom:1.75em}:where(.wp-block-columns.has-background){padding:1.25em 2.375em}.wp-block-column{flex-grow:1;min-width:0;overflow-wrap:break-word;word-break:break-word}.wp-block-column.is-vertically-aligned-top{align-self:flex-start}.wp-block-column.is-vertically-aligned-center{align-self:center}.wp-block-column.is-vertically-aligned-bottom{align-self:flex-end}.wp-block-column.is-vertically-aligned-stretch{align-self:stretch}.wp-block-column.is-vertically-aligned-bottom,.wp-block-column.is-vertically-aligned-center,.wp-block-column.is-vertically-aligned-top{width:100%}
 </style>
 <style id='wp-block-heading-inline-css'>
 h1.has-background,h2.has-background,h3.has-background,h4.has-background,h5.has-background,h6.has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
@@ -68,20 +82,6 @@ h1.has-background,h2.has-background,h3.has-background,h4.has-background,h5.has-b
 				.rtl .is-style-asterisk.has-text-align-left:before {
 					margin-right: auto;
 				}
-</style>
-<style id='wp-block-list-inline-css'>
-ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2.375em}
-
-				ul.is-style-checkmark-list {
-					list-style-type: "\2713";
-				}
-
-				ul.is-style-checkmark-list li {
-					padding-inline-start: 1ch;
-				}
-</style>
-<style id='wp-block-columns-inline-css'>
-.wp-block-columns{align-items:normal!important;box-sizing:border-box;display:flex;flex-wrap:wrap!important}@media (min-width:782px){.wp-block-columns{flex-wrap:nowrap!important}}.wp-block-columns.are-vertically-aligned-top{align-items:flex-start}.wp-block-columns.are-vertically-aligned-center{align-items:center}.wp-block-columns.are-vertically-aligned-bottom{align-items:flex-end}@media (max-width:781px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:100%!important}}@media (min-width:782px){.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column[style*=flex-basis]{flex-grow:0}}.wp-block-columns.is-not-stacked-on-mobile{flex-wrap:nowrap!important}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column{flex-basis:0;flex-grow:1}.wp-block-columns.is-not-stacked-on-mobile>.wp-block-column[style*=flex-basis]{flex-grow:0}:where(.wp-block-columns){margin-bottom:1.75em}:where(.wp-block-columns.has-background){padding:1.25em 2.375em}.wp-block-column{flex-grow:1;min-width:0;overflow-wrap:break-word;word-break:break-word}.wp-block-column.is-vertically-aligned-top{align-self:flex-start}.wp-block-column.is-vertically-aligned-center{align-self:center}.wp-block-column.is-vertically-aligned-bottom{align-self:flex-end}.wp-block-column.is-vertically-aligned-stretch{align-self:stretch}.wp-block-column.is-vertically-aligned-bottom,.wp-block-column.is-vertically-aligned-center,.wp-block-column.is-vertically-aligned-top{width:100%}
 </style>
 <style id='wp-emoji-styles-inline-css'>
 
@@ -144,14 +144,14 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 :where(.wp-site-blocks *:focus){outline-width:2px;outline-style:solid}
 </style>
 <style id='core-block-supports-inline-css'>
-.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1 > *{margin-block-start:0;margin-block-end:0;}.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1 > * + *{margin-block-start:0px;margin-block-end:0;}.wp-container-core-group-is-layout-2.wp-container-core-group-is-layout-2{gap:var(--wp--preset--spacing--20);}.wp-container-core-group-is-layout-3.wp-container-core-group-is-layout-3{justify-content:flex-start;}.wp-container-core-group-is-layout-4.wp-container-core-group-is-layout-4{justify-content:space-between;}.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1 > *{margin-block-start:0;margin-block-end:0;}.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1 > * + *{margin-block-start:0;margin-block-end:0;}.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1{flex-wrap:nowrap;gap:2em var(--wp--preset--spacing--40);}.wp-container-core-group-is-layout-9.wp-container-core-group-is-layout-9{flex-wrap:nowrap;justify-content:center;}.wp-container-core-group-is-layout-10.wp-container-core-group-is-layout-10{flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-11.wp-container-core-group-is-layout-11{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-12.wp-container-core-group-is-layout-12{flex-direction:column;align-items:stretch;}.wp-container-core-group-is-layout-13.wp-container-core-group-is-layout-13{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-14.wp-container-core-group-is-layout-14{flex-direction:column;align-items:stretch;}.wp-container-core-group-is-layout-15.wp-container-core-group-is-layout-15{justify-content:space-between;align-items:flex-start;}.wp-container-core-columns-is-layout-2.wp-container-core-columns-is-layout-2{flex-wrap:nowrap;}.wp-elements-d9793bc0cd10f8853cbda3bace69395e a:where(:not(.wp-element-button)){color:var(--wp--preset--color--contrast);}
+.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1 > *{margin-block-start:0;margin-block-end:0;}.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1.wp-container-core-group-is-layout-1 > * + *{margin-block-start:0px;margin-block-end:0;}.wp-container-core-group-is-layout-2.wp-container-core-group-is-layout-2{gap:var(--wp--preset--spacing--20);}.wp-container-core-group-is-layout-3.wp-container-core-group-is-layout-3{justify-content:flex-start;}.wp-container-core-group-is-layout-4.wp-container-core-group-is-layout-4{justify-content:space-between;}.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1 > *{margin-block-start:0;margin-block-end:0;}.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1.wp-container-core-column-is-layout-1 > * + *{margin-block-start:0;margin-block-end:0;}.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1{flex-wrap:nowrap;gap:2em var(--wp--preset--spacing--40);}.wp-container-core-group-is-layout-8.wp-container-core-group-is-layout-8{flex-wrap:nowrap;justify-content:center;}.wp-container-core-group-is-layout-9.wp-container-core-group-is-layout-9{flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-10.wp-container-core-group-is-layout-10{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-11.wp-container-core-group-is-layout-11{flex-direction:column;align-items:stretch;}.wp-container-core-group-is-layout-12.wp-container-core-group-is-layout-12{gap:var(--wp--preset--spacing--10);flex-direction:column;align-items:flex-start;}.wp-container-core-group-is-layout-13.wp-container-core-group-is-layout-13{flex-direction:column;align-items:stretch;}.wp-container-core-group-is-layout-14.wp-container-core-group-is-layout-14{justify-content:space-between;align-items:flex-start;}.wp-container-core-columns-is-layout-2.wp-container-core-columns-is-layout-2{flex-wrap:nowrap;}.wp-elements-d9793bc0cd10f8853cbda3bace69395e a:where(:not(.wp-element-button)){color:var(--wp--preset--color--contrast);}
 </style>
-<link rel="https://api.w.org/" href="/playground-docs-workflow/wp-json/" /><link rel="alternate" type="application/json" href="/playground-docs-workflow/wp-json/wp/v2/pages/4" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/playground-docs-workflow/xmlrpc.php?rsd" />
+<link rel="https://api.w.org/" href="/playground-docs-workflow/wp-json/" /><link rel="alternate" type="application/json" href="/playground-docs-workflow/wp-json/wp/v2/pages/9" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="/playground-docs-workflow/xmlrpc.php?rsd" />
 <meta name="generator" content="WordPress 6.5.2" />
-<link rel="canonical" href="/playground-docs-workflow/wordpress-playground/" />
-<link rel='shortlink' href='/playground-docs-workflow/?p=4' />
-<link rel="alternate" type="application/json+oembed" href="/playground-docs-workflow/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flocalhost%3A8881%2Fwordpress-playground%2F" />
-<link rel="alternate" type="text/xml+oembed" href="/playground-docs-workflow/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flocalhost%3A8881%2Fwordpress-playground%2F&#038;format=xml" />
+<link rel="canonical" href="/playground-docs-workflow/architecture/" />
+<link rel='shortlink' href='/playground-docs-workflow/?p=9' />
+<link rel="alternate" type="application/json+oembed" href="/playground-docs-workflow/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flocalhost%3A8881%2Farchitecture%2F" />
+<link rel="alternate" type="text/xml+oembed" href="/playground-docs-workflow/wp-json/oembed/1.0/embed?url=http%3A%2F%2Flocalhost%3A8881%2Farchitecture%2F&#038;format=xml" />
 <style id='wp-fonts-local'>
 @font-face{font-family:Inter;font-style:normal;font-weight:300 900;font-display:fallback;src:url('/playground-docs-workflow/wp-content/themes/twentytwentyfour/assets/fonts/inter/Inter-VariableFont_slnt,wght.woff2') format('woff2');font-stretch:normal;}
 @font-face{font-family:Cardo;font-style:normal;font-weight:400;font-display:fallback;src:url('/playground-docs-workflow/wp-content/themes/twentytwentyfour/assets/fonts/cardo/cardo_normal_400.woff2') format('woff2');}
@@ -160,7 +160,7 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 </style>
 </head>
 
-<body class="page-template-default page page-id-4 page-parent wp-embed-responsive">
+<body class="page-template-default page page-id-9 page-parent wp-embed-responsive">
 
 <div class="wp-site-blocks"><header class="wp-block-template-part">
 <div class="wp-block-group alignwide has-base-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:20px;padding-bottom:20px">
@@ -179,15 +179,15 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 </header>
 
 
-<div class="wp-block-group is-content-justification-center is-nowrap is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-content-justification-center is-nowrap is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
 <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
-<div class="wp-block-column is-layout-flow wp-container-core-column-is-layout-1 wp-block-column-is-layout-flow" style="border-right-style:none;border-right-width:0px;padding-top:var(--wp--preset--spacing--10);padding-right:0;padding-bottom:var(--wp--preset--spacing--10);padding-left:0;flex-basis:400px"><ul class="wp-block-page-list"><li class="wp-block-pages-list__item has-child"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/">Architecture</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item has-child "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/">WebAssembly PHP</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/compiling-php/">Compiling PHP</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/php-filesystem/">PHP Filesystem</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/asyncify/">Asyncify</a></li></ul></li></ul></li><li class="wp-block-pages-list__item has-child"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/developer-apis/">Developer APIs</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/developer-apis/query-api/">Query API</a></li></ul></li><li class="wp-block-pages-list__item current-menu-item has-child menu-item-home"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/" aria-current="page">WordPress Playground</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/overview/">Overview</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/start-using-wordpress-playground-in-5-minutes/">Start using WordPress Playground in 5 minutes</a></li></ul></li></ul></div>
+<div class="wp-block-column is-layout-flow wp-container-core-column-is-layout-1 wp-block-column-is-layout-flow" style="border-right-style:none;border-right-width:0px;padding-top:var(--wp--preset--spacing--10);padding-right:0;padding-bottom:var(--wp--preset--spacing--10);padding-left:0;flex-basis:400px"><ul class="wp-block-page-list"><li class="wp-block-pages-list__item current-menu-item has-child"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/" aria-current="page">Architecture</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item has-child "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/">WebAssembly PHP</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/compiling-php/">Compiling PHP</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/php-filesystem/">PHP Filesystem</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/architecture/webassembly-php/asyncify/">Asyncify</a></li></ul></li></ul></li><li class="wp-block-pages-list__item has-child"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/developer-apis/">Developer APIs</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/developer-apis/query-api/">Query API</a></li></ul></li><li class="wp-block-pages-list__item has-child menu-item-home"><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/">WordPress Playground</a><ul class="wp-block-navigation__submenu-container"><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/overview/">Overview</a></li><li class="wp-block-pages-list__item "><a class="wp-block-pages-list__item__link" href="/playground-docs-workflow/wordpress-playground/start-using-wordpress-playground-in-5-minutes/">Start using WordPress Playground in 5 minutes</a></li></ul></li></ul></div>
 
 
 
 <div class="wp-block-column has-global-padding is-layout-constrained wp-block-column-is-layout-constrained" style="flex-basis:66.66%">
 <main class="wp-block-group alignfull has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
-<div class="wp-block-group alignfull has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"><h1 class="has-text-align-left alignfull wp-block-post-title">WordPress Playground</h1>
+<div class="wp-block-group alignfull has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"><h1 class="has-text-align-left alignfull wp-block-post-title">Architecture</h1>
 
 
 <div style="margin-top:0;margin-bottom:0;height:var(--wp--preset--spacing--30)" aria-hidden="true" class="wp-block-spacer"></div>
@@ -197,119 +197,33 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 
 
 <div class="entry-content alignfull wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
-<div class="wp-block-group has-accent-5-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--40)">
-<p><strong>Looking for the official Playground website?</strong></p>
-
-
-
-<p>WordPress Playground website moved to <a href="https://wordpress.org/playground/">wordpress.org/playground</a>. The site you&#8217;re at now hosts the documentation.</p>
-
-
-
-<p></p>
-</div>
-
-
-
-<p>👋 Hi! Welcome to WordPress Playground documentation. Playground is an online tool to experiment and learn about WordPress – learn more in the [overview section](./02-overview.md).</p>
-
-
-
-<p>The documentation consists of two major sections:</p>
-
-
-
-<p>&#8211; [Documentation](./01-index.md) (you&#8217;re here) – Introduction, concepts, and guides</p>
-
-
-
-<p>&#8211; [API reference](/api) – All the APIs exposed by WordPress Playground</p>
-
-
-
-<p>This site (Documentation) is where you will find all the information you need to start using Playground. To learn more about what this fantastic tool, read [Introduction to Playground: running WordPress in the browser](https://developer.wordpress.org/news/2024/04/05/introduction-to-playground-running-wordpress-in-the-browser/)</p>
-
-
-
-<h2 class="wp-block-heading"><strong>Quick start</strong></h2>
+<p>WordPress Playground consists of the following high-level components:</p>
 
 
 
 <ul>
-<li>[Start using WordPress Playground](../02-start-using/01-index.md) in 5 minutes (and check out the [demo site](https://playground.wordpress.net/))</li>
+<li><a href="./15-wordpress.md">WordPress</a></li>
 
 
 
-<li>Build your first app](../03-build-an-app/01-index.md) with WordPress Playground</li>
+<li><a href="./02-wasm-php-overview.md">WebAssembly PHP</a></li>
 
 
 
-<li>Use Playground as a zero-setup [local development environment](../04-nodejs/01-index.md#start-a-zero-setup-dev-environment-via-vscode-extension)</li>
+<li><a href="./08-browser-concepts.md">Browser bindings</a></li>
 
 
 
-<li>Read about the [limitations](../12-limitations/01-index.md)</li>
+<li>Node.js bindings via <a href="https://npmjs.com/package/@php-wasm/node">@php-wasm/node</a></li>
 
 
 
-<li>[WordCamp Contributor Day](../14-contributor-day/01-index.md)</li>
+<li><a href="../06-playground-apis/01-index.md">Public API</a></li>
 </ul>
 
 
 
-<h2 class="wp-block-heading"><strong>Take a deep dive</strong></h2>
-
-
-
-<ul>
-<li>Read about [Playground APIs](../06-playground-apis/01-index.md) and basic concepts</li>
-
-
-
-<li>Review [links and resources](../15-resources.md)</li>
-
-
-
-<li>Choose the right API for your app &lt;APIList /&gt;</li>
-
-
-
-<li>Dive into the [architecture](../11-architecture/01-index.md) and learn how it all works</li>
-</ul>
-
-
-
-<h2 class="wp-block-heading"><strong>Get Involved</strong></h2>
-
-
-
-<p>WordPress Playground is an open-source project and welcomes all contributors from code to design, and from documentation to triage. Don&#8217;t worry, <strong>you don&#8217;t need to know WebAssembly</strong> to contribute!</p>
-
-
-
-<ul>
-<li>See the [Contributors Handbook](../13-contributing/01-index.md) for all the details on how you can contribute.</li>
-
-
-
-<li>Join us in the `#meta-playground` channel in Slack (see the [WordPress Slack page](https://make.wordpress.org/chat/) for signup information)</li>
-</ul>
-
-
-
-<p>As with all WordPress projects, we want to ensure a welcoming environment for everyone. With that in mind, all contributors are expected to follow our <a href="https://make.wordpress.org/handbook/community-code-of-conduct/">Code of Conduct</a>.</p>
-
-
-
-<h2 class="wp-block-heading"><strong>License</strong></h2>
-
-
-
-<p>WordPress Playground is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See <a href="https://github.com/WordPress/wordpress-playground/blob/trunk/LICENSE">LICENSE.md</a>. for complete license.</p>
-
-
-
-<p></p>
+<p>Visit each section to learn more about the specific parts of the architecture.</p>
 <!-- --></div></main>
 </div>
 </div>
@@ -320,7 +234,7 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 <div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
 <div class="wp-block-columns alignwide is-layout-flex wp-container-core-columns-is-layout-2 wp-block-columns-is-layout-flex">
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:30%">
-<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex"><p class="wp-block-site-title has-medium-font-size"><a href="http://localhost:8881" target="_self" rel="home">My WordPress Website</a></p></div>
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex"><p class="wp-block-site-title has-medium-font-size"><a href="http://localhost:8881" target="_self" rel="home">My WordPress Website</a></p></div>
 </div>
 
 
@@ -330,13 +244,13 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 
 
 <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:50%">
-<div class="wp-block-group is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
 <h2 class="wp-block-heading has-medium-font-size has-body-font-family" style="font-style:normal;font-weight:600">Docs</h2>
 
 
 
-<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
 <ul>
 <li><a href="https://wordpress.github.io/wordpress-playground/">Documentation</a></li>
 
@@ -349,12 +263,12 @@ ol,ul{box-sizing:border-box}ol.has-background,ul.has-background{padding:1.25em 2
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
 <h2 class="wp-block-heading has-medium-font-size has-body-font-family" style="font-style:normal;font-weight:600">Community</h2>
 
 
 
-<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
 <ul>
 <li><a href="https://github.com/WordPress/wordpress-playground" target="_blank" rel="noreferrer noopener">GitHub</a></li>
 
