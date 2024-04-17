@@ -21,6 +21,7 @@ require_once __DIR__ . '/playground-post-export-processor.php';
 
 add_action('init', function () {
     initialize_docs_plugin(); 
+    
 });
 
 /**
@@ -59,6 +60,7 @@ function initialize_docs_plugin() {
     
     update_option('permalink_structure', '/%postname%/');
     flush_rewrite_rules();
+    switch_theme('playground-docs');
     pages_reinitialize_content();
 }
 

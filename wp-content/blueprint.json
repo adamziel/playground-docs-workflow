@@ -16,6 +16,10 @@
 			"extractToPath": "/wordpress"
 		},
 		{
+			"step": "activateTheme",
+			"themeFolderName": "playground-docs"
+		},
+		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
 		}
