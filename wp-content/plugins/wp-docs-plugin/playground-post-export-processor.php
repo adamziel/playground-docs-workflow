@@ -90,7 +90,7 @@ if ( ! class_exists( 'Playground_Post_Export_Processor' ) ) {
 			}
 			list( $after_opener_tag, $before_closer_tag ) = $positions;
 
-			$this->lexical_updates[] = new Gutenberg_HTML_Text_Replacement_6_5(
+			$this->lexical_updates[] = new WP_HTML_Text_Replacement(
 				$after_opener_tag,
 				$before_closer_tag - $after_opener_tag,
 				esc_html( $new_content )
@@ -125,9 +125,9 @@ if ( ! class_exists( 'Playground_Post_Export_Processor' ) ) {
 
 			$positions = array(
 				'before_opener_tag' => $this->bookmarks[$opener_tag]->start,
-				'after_opener_tag' => $this->bookmarks[$opener_tag]->end + 1,
+				'after_opener_tag' => $this->bookmarks[$opener_tag]->start + $this->bookmarks[$opener_tag]->length + 1,
 				'before_closer_tag' => $this->bookmarks[$closer_tag]->start,
-				'after_closer_tag' => $this->bookmarks[$closer_tag]->end + 1,
+				'after_closer_tag' => $this->bookmarks[$closer_tag]->start + $this->bookmarks[$closer_tag]->length + 1,
 			);
 
 			if ( $rewind ) {
