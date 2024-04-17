@@ -1,3 +1,18 @@
+/**
+ * Static Site Generator for wp-now
+ * 
+ * How does it work?
+ * 1. The JavaScript crawler requests /logout/ to, well, log out.
+ * 2. The /sitemap/ endpoint returns a list of all Posts with post_type=page and their URLs
+ * 3. A JavaScript crawler requests each of those pages and writes the rendered HTML to the out directory
+ * 4. All full-qualified site URLs are replaced with an absolute path
+ * 5. The JavaScript crawler sends a request to /zip-wp-files/ to create wp.zip with wp-includes and wp-content inside (without PHP files)
+ * 6. The JavaScript crawler unzips wp.zip in the out directory, shipping the missing static assets
+ * 
+ * It's weird process – that's because of wp-now's limitations.
+ * @ee https://github.com/WordPress/playground-tools/issues/238
+ */
+
 const { exec } = require('child_process');
 const fs = require('fs');
 
