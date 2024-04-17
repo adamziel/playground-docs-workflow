@@ -55,7 +55,7 @@ async function renderStaticSite(siteUrl) {
         fs.writeFileSync(`${fileDir}/${fileName}`, page);
 
         if (isFrontPage) {
-            fs.writeFileSync(`${outdir}/index.html`, `<!DOCTYPE html><script>window.location.href = ${JSON.stringify(url.replace(siteUrl, PATH_PREFIX))};</script>`);
+            fs.writeFileSync(`${outdir}/index.html`, `<!DOCTYPE html><script>window.location.href = ${JSON.stringify(url.replace(siteUrl, PATH_PREFIX).replace('//', '/'))};</script>`);
         }
     }
 
