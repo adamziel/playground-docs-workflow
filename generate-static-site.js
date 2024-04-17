@@ -2,7 +2,9 @@ const { exec } = require('child_process');
 const fs = require('fs');
 
 const outdir = process.argv[2] || __dirname + '/out';
+const PATH_PREFIX = process.env.PATH_PREFIX || '/';
 
+console.log(`Generating static site with ${PATH_PREFIX} prefix to: ${outdir}`);
 // Run the start-site.sh script
 const startSiteProcess = exec('bash start-site.sh');
 
@@ -49,7 +51,7 @@ async function renderStaticSite(siteUrl) {
         }
 
         // Write the page content to a file
-        page = normalizeUrls(page, siteUrl, process.env.PATH_PREFIX || '/');
+        page = normalizeUrls(page, siteUrl, PATH_PREFIX);
         fs.writeFileSync(`${fileDir}/${fileName}`, page);
 
         if (isFrontPage) {
