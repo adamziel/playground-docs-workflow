@@ -8,13 +8,6 @@
 	"login": true,
 	"steps": [
 		{
-			"step": "installTheme",
-			"themeZipFile": {
-				"resource": "wordpress.org/themes",
-				"slug": "twentytwentyfour"
-			}
-		},
-		{
 			"step": "unzip",
 			"zipFile": {
 				"resource": "url",
