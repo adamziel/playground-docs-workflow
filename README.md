@@ -22,7 +22,17 @@ https://github.com/adamziel/playground-docs-workflow/assets/205419/5d06d8b8-cd9f
 
 ### Locally
 
-Run `start-site.sh` to start a local server with the documentation site. You'll need node.js and npm installed.
+To start a local server with the documentation site, run:
+    
+```bash
+# Warning: This removes all your local changes, be sure to commit
+#          them before running this command. This is needed because
+#          of wp-now limitations that will be fixed in the future.
+git stash -u 
+npx @wp-now/wp-now@latest start
+```
+
+You'll need node.js and npm installed.
 
 Once you're done editing the documentation, commit your changes as follows:
 
