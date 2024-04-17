@@ -20,30 +20,6 @@ define('DOCS_INTERNAL_SITE_URL', 'https://playground.internal');
 require_once __DIR__ . '/playground-post-export-processor.php';
 
 add_action('init', function () {
-    // Register custom post type for page
-    // $args = array(
-    //     'public' => true,
-    //     'show_in_rest' => true, // Enable block editor
-    //     'menu_position' => 5,
-    //     'hierarchical' => true,
-    //     'show_in_nav_menus' => true,
-    //     'show_in_menu' => true,
-    //     'show_ui' => true,
-    //     'publicly_queryable' => true,
-    //     'exclude_from_search' => false,
-    //     'has_archive' => true,
-    //     'query_var' => true,
-    //     'supports' => array('title', 'editor', 'custom-fields', 'page-attributes'),
-    //     'labels' => array(
-    //         'name' => 'Doc Pages',
-    //         'singular_name' => 'Doc Page',
-    //         'menu_name' => 'Doc Pages',
-    //         'add_new' => 'Add New',
-    //         'add_new_item' => 'Add New',
-    //     ),
-    // );
-    // register_post_type('page', $args);
-
     initialize_docs_plugin(); 
 });
 
@@ -89,7 +65,6 @@ function initialize_docs_plugin() {
 add_action('admin_menu', function () {
     // Remove distracting options from the admin menu
     remove_menu_page('edit.php');
-    remove_menu_page('edit.php?post_type=page');
     remove_menu_page('edit-comments.php');
     remove_menu_page('users.php');
 
