@@ -60,6 +60,8 @@ function initialize_docs_plugin() {
     
     update_option('permalink_structure', '/%postname%/');
     flush_rewrite_rules();
+    // Activating here because the activateTheme Blueprint step doesn't work
+    // in wp-now :(
     switch_theme('playground-docs');
     pages_reinitialize_content();
 }

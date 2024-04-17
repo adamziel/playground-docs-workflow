@@ -15,10 +15,6 @@
 			}
 		},
 		{
-			"step": "activateTheme",
-			"themeFolderName": "playground-docs"
-		},
-		{
 			"step": "writeFile",
 			"path": "wp-content/mu-plugins/0-docs.php",
 			"data": "<?php require __DIR__ . '/../plugins/wp-docs-plugin/plugin.php'; "
