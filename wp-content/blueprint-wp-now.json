@@ -5,7 +5,7 @@
 		"wp": "latest",
 		"php": "7.4"
 	},
-	"login": true,
+	"login": false,
 	"steps": [
 		{
 			"step": "installTheme",
