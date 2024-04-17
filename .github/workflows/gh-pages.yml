@@ -19,7 +19,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
             - name: Generate static site
-              run: PATH_PREFIX=/$(echo ${{ env.REPO }} | cut -d'/' -f1)/ node generate-static-site.js
+              run: PATH_PREFIX=/$(echo ${{ env.REPO }} | cut -d'/' -f2)/ node generate-static-site.js
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v4
               with:
