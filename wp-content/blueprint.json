@@ -23,6 +23,13 @@
 			}
 		},
 		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "gutenberg"
+			}
+		},
+		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
 		}
