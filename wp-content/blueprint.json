@@ -16,6 +16,13 @@
 			"extractToPath": "/wordpress"
 		},
 		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "create-block-theme"
+			}
+		},
+		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
 		}

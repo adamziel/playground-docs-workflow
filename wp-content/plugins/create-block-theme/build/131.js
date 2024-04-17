@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkcreate_block_theme=globalThis.webpackChunkcreate_block_theme||[]).push([[131],{2131:(e,t,r)=>{r.r(t),r.d(t,{glyf:()=>a});var s=r(2592);class a extends s.x{constructor(e,t){const{p:r}=super(e,t)}getGlyphData(e,t){return this.parser.currentPosition=this.tableStart+e,this.parser.readBytes(t)}}}}]);

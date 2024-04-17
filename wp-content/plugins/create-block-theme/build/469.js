@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkcreate_block_theme=globalThis.webpackChunkcreate_block_theme||[]).push([[469],{8469:(e,t,s)=>{s.r(t),s.d(t,{cvt:()=>a});var c=s(2592),r=s(7047);class a extends c.x{constructor(e,t){const{p:s}=super(e,t),c=e.length/2;(0,r.Z)(this,"items",(()=>[...new Array(c)].map((e=>s.fword))))}}}}]);
