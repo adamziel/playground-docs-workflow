@@ -44,7 +44,15 @@ add_action('init', function () {
     );
     register_post_type('doc_page', $args);
 
-    initialize_docs_plugin();
+    initialize_docs_plugin(); 
+});
+
+add_action('parse_request', function ($wp) {
+    if ($wp->rest_route === 'sitemap') {
+        header('Content-Type: application/json');
+        echo json_encode(get_index_of_all_pages());
+        exit;
+    }
 });
 
 function initialize_docs_plugin() {
@@ -179,6 +187,23 @@ add_action('save_post_doc_page', function ($post_id) {
     docs_plugin_deltree(HTML_PAGES_PATH);
     rename($tmpPath, HTML_PAGES_PATH);
 });
+
+function get_index_of_all_pages() {
+    $pages = get_pages(array(
+        'post_status' => 'publish',
+        'posts_per_page' => -1 // Get all pages
+    ));
+
+    $sitemap = [];
+    // Loop through pages and print URLs
+    foreach($pages as $page) {
+        $sitemap[] = [
+            'url' => get_permalink($page->ID),
+            'title' => $page->post_title,
+        ];
+    }
+    return $sitemap;
+}
 
 function create_db_doc_pages_from_html_files($dir, $parent_id = 0) {
     $indexFilePath = $dir . '/index.html';
