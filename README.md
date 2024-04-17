@@ -8,6 +8,8 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 * Submit the changes as a pull request.
 * Provide a live preview of the documentation PR.
 
+[<kbd> <br>Browse the Documentation<br> </kbd>](https://adamziel.github.io/playground-docs-workflow/).
+
 ## How to edit the documentation?
 
 ### In WordPress Playground
