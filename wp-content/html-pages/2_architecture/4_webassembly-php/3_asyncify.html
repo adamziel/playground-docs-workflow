@@ -1,0 +1,85 @@
+<h1>Asyncify</h1>
+
+<!-- wp:paragraph -->
+<p><a href="https://emscripten.org/docs/porting/asyncify.html">Asyncify</a> lets synchronous C or C++ code interact with asynchronous JavaScript. Technically, it saves the entire C call stack before yielding control back to JavaScript, and then restores it when the asynchronous call is finished. This is called <strong>stack switching</strong>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Networking support in the WebAssembly PHP build is implemented using Asyncify. When PHP makes a network request, it yields control back to JavaScript, which makes the request, and then resumes PHP when the response is ready. It works well enough that PHP build can request web APIs, install composer packages, and even connect to a MySQL server.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Asyncify crashes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Stack switching requires wrapping all C functions that may be found at a call stack at a time of making an asynchronous call. Blanket-wrapping of every single C function adds a <strong>significant</strong> overhead, which is why we maintain a list of specific function names:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><a href="https://github.com/WordPress/wordpress-playground/blob/15a660940ee9b4a332965ba2a987f6fda0c159b1/packages/php-wasm/compile/Dockerfile#L624-L632">https://github.com/WordPress/wordpress-playground/blob/15a660940ee9b4a332965ba2a987f6fda0c159b1/packages/php-wasm/compile/Dockerfile#L624-L632</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Unfortunately, missing even a single item from that list results in a WebAssembly crash whenever that function is a part of the call stack when an asynchronous call is made. It looks like this:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:image -->
+<figure class="wp-block-image"><img src="../../static/img/asyncify-error.png" alt="A screenshot of an asyncify error in the terminal"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Asyncify can auto-list all the required C functions when built without <code>ASYNCIFY_ONLY</code>, but that auto-detection is overeager and ends up listing about 70,000 C functions which increases the startup time to 4.5s. That's why we maintain the list manually.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If you are interested in more details, <a href="https://github.com/WordPress/wordpress-playground/issues/251">see GitHub issue 251</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Fixing Asyncify crashes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><a href="https://github.com/WordPress/wordpress-playground/pull/253">Pull Request 253</a> adds a <code>fix-asyncify</code> command that runs a specialized test suite and automatically adds any identified missing C functions to the <code>ASYNCIFY_ONLY</code> list.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If you run into a crash like the one above, you can fix it by:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list {"ordered":true} -->
+<ol><!-- wp:list-item -->
+<li>Identifying a PHP code path that triggers the crash – the stack trace in the terminal should help with that.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Adding a test case that triggers a crash to <code>packages/php-wasm/node/src/test/php-asyncify.spec.ts</code></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Running: <code>npm run fix-asyncify</code></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Committing the test case, the updated Dockerfile, and the rebuilt PHP.wasm</li>
+<!-- /wp:list-item --></ol>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">The upcoming JSPI API will make Asyncify unnecessary</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Eventually, <a href="https://github.com/WordPress/wordpress-playground/issues/134">V8 will likely handle stack switching for us</a> and remove this problem entirely. <a href="https://github.com/WordPress/wordpress-playground/issues/134">Issue 134</a> tracks the status of that effort.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Here's <a href="https://github.com/fgmccabe">a relevant note</a> from @fgmccabe:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph {"fontSize":"medium"} -->
+<p class="has-medium-font-size">The current implementation in V8 is essentially 'experimental status'. We have arm64 and x64 implementations.<br>The next steps are to implement on 32 bit arm/intel. That requires us to solve some issues that we did not have to solve so far.<br>As for node.js, my guess is that it is already in node, behind a flag.<br>To remove the flag requirement involves getting other implementations. The best estimate for that is towards the end of this year; but it obviously depends on resources and funding.<br>In addition, it would need further progress in the standardization effort; but, given that it is a 'small' spec, that should not be a long term burden.<br>Hope that this helps you understand the roadmap :)</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
