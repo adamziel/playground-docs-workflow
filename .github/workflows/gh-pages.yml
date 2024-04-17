@@ -13,11 +13,13 @@ jobs:
         permissions:
             contents: write      # to deploy to Pages
 
+        env:
+            REPO: ${{ github.repository }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
             - name: Generate static site
-              run: node generate-static-site.js
+              run: PATH_PREFIX=/$(echo ${{ env.REPO }} | cut -d'/' -f1)/ node generate-static-site.js
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v4
               with:

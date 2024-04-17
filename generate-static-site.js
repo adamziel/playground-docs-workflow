@@ -49,7 +49,7 @@ async function renderStaticSite(siteUrl) {
         }
 
         // Write the page content to a file
-        page = normalizeUrls(page, siteUrl, '/');
+        page = normalizeUrls(page, siteUrl, process.env.PATH_PREFIX || '/');
         fs.writeFileSync(`${fileDir}/${fileName}`, page);
 
         if (isFrontPage) {
