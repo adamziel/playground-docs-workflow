@@ -125,9 +125,9 @@ if ( ! class_exists( 'Playground_Post_Export_Processor' ) ) {
 
 			$positions = array(
 				'before_opener_tag' => $this->bookmarks[$opener_tag]->start,
-				'after_opener_tag' => $this->bookmarks[$opener_tag]->end + 1,
+				'after_opener_tag' => $this->bookmarks[$opener_tag]->start + $this->bookmarks[$opener_tag]->length,
 				'before_closer_tag' => $this->bookmarks[$closer_tag]->start,
-				'after_closer_tag' => $this->bookmarks[$closer_tag]->end + 1,
+				'after_closer_tag' => $this->bookmarks[$closer_tag]->start + $this->bookmarks[$closer_tag]->length,
 			);
 
 			if ( $rewind ) {
