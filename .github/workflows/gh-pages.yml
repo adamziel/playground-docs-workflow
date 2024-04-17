@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - trunk
+    workflow_dispatch:
 
 
 jobs:
@@ -11,8 +12,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         permissions:
-            contents: write      # to deploy to Pages
-
+            contents: write  # to deploy to Pages
+        timeout-minutes: 5
         env:
             REPO: ${{ github.repository }}
         steps:

@@ -20,9 +20,23 @@ define('DOCS_INTERNAL_SITE_URL', 'https://playground.internal');
 require_once __DIR__ . '/playground-post-export-processor.php';
 
 add_action('init', function () {
+    // Don't initialize the plugin if WordPress wasn't installed yet.
+    global $wpdb;
+    if($wpdb->get_var("SHOW TABLES LIKE 'wp_options'") != 'wp_options') {
+        return;
+    }
     initialize_docs_plugin(); 
-    
 });
+
+add_filter('http_request_args', function ($args, $url) {
+    $args['reject_unsafe_urls'] = true;
+    return $args;
+}, 10, 2);
+
+add_filter('allowed_redirect_hosts', function ($deprecated = '') {
+    return array ();
+});
+
 
 /**
  * Static site generation endpoints
@@ -262,7 +276,9 @@ function create_db_pages_from_html_files($dir, $parent_id = 0) {
 
 function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
     $content = file_get_contents($file->getRealPath());
-    $p = new Playground_Post_Export_Processor($content);
+    // Add a comment to prevent this failure:
+    // 'PHP Fatal error:  Uncaught ValueError: strpos(): Argument #3 ($offset) must be contained in argument #1 ($haystack)
+    $p = new Playground_Post_Export_Processor($content . '<!-- -->'); 
     $p->next_tag();
     if($p->get_tag() === 'H1') {
         $p->set_bookmark('start');
