@@ -20,29 +20,29 @@ define('DOCS_INTERNAL_SITE_URL', 'https://playground.internal');
 require_once __DIR__ . '/playground-post-export-processor.php';
 
 add_action('init', function () {
-    // Register custom post type for doc_page
-    $args = array(
-        'public' => true,
-        'show_in_rest' => true, // Enable block editor
-        'menu_position' => 5,
-        'hierarchical' => true,
-        'show_in_nav_menus' => true,
-        'show_in_menu' => true,
-        'show_ui' => true,
-        'publicly_queryable' => true,
-        'exclude_from_search' => false,
-        'has_archive' => true,
-        'query_var' => true,
-        'supports' => array('title', 'editor', 'custom-fields', 'page-attributes'),
-        'labels' => array(
-            'name' => 'Doc Pages',
-            'singular_name' => 'Doc Page',
-            'menu_name' => 'Doc Pages',
-            'add_new' => 'Add New',
-            'add_new_item' => 'Add New',
-        ),
-    );
-    register_post_type('doc_page', $args);
+    // Register custom post type for page
+    // $args = array(
+    //     'public' => true,
+    //     'show_in_rest' => true, // Enable block editor
+    //     'menu_position' => 5,
+    //     'hierarchical' => true,
+    //     'show_in_nav_menus' => true,
+    //     'show_in_menu' => true,
+    //     'show_ui' => true,
+    //     'publicly_queryable' => true,
+    //     'exclude_from_search' => false,
+    //     'has_archive' => true,
+    //     'query_var' => true,
+    //     'supports' => array('title', 'editor', 'custom-fields', 'page-attributes'),
+    //     'labels' => array(
+    //         'name' => 'Doc Pages',
+    //         'singular_name' => 'Doc Page',
+    //         'menu_name' => 'Doc Pages',
+    //         'add_new' => 'Add New',
+    //         'add_new_item' => 'Add New',
+    //     ),
+    // );
+    // register_post_type('page', $args);
 
     initialize_docs_plugin(); 
 });
@@ -72,8 +72,8 @@ add_action('parse_request', function ($wp) {
 
 function initialize_docs_plugin() {
     if(get_option('docs_populated')) {
-        // Prevent collisions between the initial create_db_doc_pages_from_html_files call
-        // process and the save_post_doc_page hook.
+        // Prevent collisions between the initial create_db_pages_from_html_files call
+        // process and the save_post_page hook.
         return;
     }
 
@@ -83,7 +83,7 @@ function initialize_docs_plugin() {
     
     update_option('permalink_structure', '/%postname%/');
     flush_rewrite_rules();
-    doc_pages_reinitialize_content();
+    pages_reinitialize_content();
 }
 
 add_action('admin_menu', function () {
@@ -95,7 +95,7 @@ add_action('admin_menu', function () {
 
     // Add a submenu under "Docs pages" menu
     add_submenu_page(
-        'edit.php?post_type=doc_page',
+        'edit.php?post_type=page',
         'Download ZIP',
         'Download ZIP',
         'manage_options',
@@ -104,11 +104,11 @@ add_action('admin_menu', function () {
     );
     // Add a submenu under "Docs pages" menu
     add_submenu_page(
-        'edit.php?post_type=doc_page',
+        'edit.php?post_type=page',
         'Reload doc pages from disk',
         'Reload doc pages from disk',
         'manage_options',
-        'recreate_db_doc_pages_from_disk',
+        'recreate_db_pages_from_disk',
         function () { }
     );
 });
@@ -117,8 +117,8 @@ add_action('admin_init', function () {
     if (isset($_GET['page']) && $_GET['page'] === 'download_docs') {
         return download_docs_callback();
     }
-    if (isset($_GET['page']) && $_GET['page'] === 'recreate_db_doc_pages_from_disk') {
-        doc_pages_reinitialize_content();
+    if (isset($_GET['page']) && $_GET['page'] === 'recreate_db_pages_from_disk') {
+        pages_reinitialize_content();
 
         // Display admin notice
         add_action('admin_notices', function () {
@@ -127,11 +127,11 @@ add_action('admin_init', function () {
     }
 });
 
-function doc_pages_reinitialize_content() {
+function pages_reinitialize_content() {
     update_option('docs_populated', false);
 
-    delete_db_doc_pages(HTML_PAGES_PATH);
-	create_db_doc_pages_from_html_files(HTML_PAGES_PATH);
+    delete_db_pages(HTML_PAGES_PATH);
+	create_db_pages_from_html_files(HTML_PAGES_PATH);
     delete_db_attachments();
     create_db_media_files_from_uploads();
 
@@ -186,9 +186,9 @@ function download_docs_callback() {
  * which files have been added, deleted, renamed and moved under
  * another parent, or changed via a direct SQL query.
  */
-add_action('save_post_doc_page', function ($post_id) {
-    // Prevent collisions between the initial create_db_doc_pages_from_html_files call
-    // process and the save_post_doc_page hook.
+add_action('save_post_page', function ($post_id) {
+    // Prevent collisions between the initial create_db_pages_from_html_files call
+    // process and the save_post_page hook.
     if (!get_option('docs_populated')) {
         return;
     }
@@ -200,7 +200,7 @@ add_action('save_post_doc_page', function ($post_id) {
     if (file_exists($tmpPath)) {
         docs_plugin_deltree($tmpPath);
     }
-    save_db_doc_pages_as_html($tmpPath);
+    save_db_pages_as_html($tmpPath);
     docs_plugin_deltree(HTML_PAGES_PATH);
     rename($tmpPath, HTML_PAGES_PATH);
 });
@@ -208,7 +208,7 @@ add_action('save_post_doc_page', function ($post_id) {
 function get_index_of_all_pages() {
     $frontpage_id = get_option('page_on_front');
     $pages = [];
-    foreach (array('doc_page', 'page') as $page_type) {
+    foreach (array('page', 'page') as $page_type) {
         $pages = array_merge($pages, get_pages(
             array(
                 'post_status' => 'publish',
@@ -256,10 +256,10 @@ function zip_wp_files($target_path) {
     $zip->close();
 }
 
-function create_db_doc_pages_from_html_files($dir, $parent_id = 0) {
+function create_db_pages_from_html_files($dir, $parent_id = 0) {
     $indexFilePath = $dir . '/index.html';
     if(file_exists($indexFilePath)) {
-        $parent_id = create_db_doc_page_from_html_file(new SplFileInfo($indexFilePath), $parent_id);
+        $parent_id = create_db_page_from_html_file(new SplFileInfo($indexFilePath), $parent_id);
     }
 
     foreach (scandir($dir) as $file) {
@@ -269,14 +269,14 @@ function create_db_doc_pages_from_html_files($dir, $parent_id = 0) {
         
         $filePath = $dir . '/' . $file;
         if (is_dir($filePath)) {
-            create_db_doc_pages_from_html_files($filePath, $parent_id);
+            create_db_pages_from_html_files($filePath, $parent_id);
         } else if (pathinfo($file, PATHINFO_EXTENSION) === 'html') {
-            create_db_doc_page_from_html_file(new SplFileInfo($filePath), $parent_id);
+            create_db_page_from_html_file(new SplFileInfo($filePath), $parent_id);
         }
     }
 }
 
-function create_db_doc_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
+function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
     $content = file_get_contents($file->getRealPath());
     $p = new Playground_Post_Export_Processor($content);
     $p->next_tag();
@@ -303,13 +303,13 @@ function create_db_doc_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
         $title = $file->getBasename('.html');
     }
 
-    // Insert the content as a WordPress doc_page
+    // Insert the content as a WordPress page
     $post_data = array(
         'post_title' => $title,
         'post_content' => $content,
         'post_status' => 'publish',
         'post_author' => get_current_user_id(),
-        'post_type' => 'doc_page',
+        'post_type' => 'page',
         'post_parent' => $parent_id,
     );
 
@@ -324,9 +324,9 @@ function create_db_doc_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
     return $page_id;
 }
 
-function delete_db_doc_pages() {
+function delete_db_pages() {
     $args = array(
-        'post_type'      => 'doc_page',
+        'post_type'      => 'page',
         'posts_per_page' => -1,
         'post_status'    => 'any',
     );
@@ -341,13 +341,13 @@ function delete_db_doc_pages() {
     wp_reset_postdata();
 }
 
-function save_db_doc_pages_as_html($path, $parent_id = 0) {
+function save_db_pages_as_html($path, $parent_id = 0) {
     if (!file_exists($path)) {
         mkdir($path, 0777, true);
     }
 
     $args = array(
-        'post_type'      => 'doc_page',
+        'post_type'      => 'page',
         'posts_per_page' => -1,
         'post_parent'    => $parent_id,
         'post_status'    => 'publish',
@@ -372,7 +372,7 @@ function save_db_doc_pages_as_html($path, $parent_id = 0) {
                 DOCS_INTERNAL_SITE_URL,
                 $content
             );
-            $child_pages = get_pages(array('child_of' => $page_id, 'post_type' => 'doc_page'));
+            $child_pages = get_pages(array('child_of' => $page_id, 'post_type' => 'page'));
 
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
@@ -384,7 +384,7 @@ function save_db_doc_pages_as_html($path, $parent_id = 0) {
                     mkdir($new_parent, 0777, true);
                 }
                 file_put_contents($new_parent . '/index.html', $content);
-                save_db_doc_pages_as_html($new_parent, $page_id);
+                save_db_pages_as_html($new_parent, $page_id);
             } else {
                 file_put_contents($path . '/' . $page->menu_order . '_' . $title . '.html', $content);
             }
