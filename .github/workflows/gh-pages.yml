@@ -5,9 +5,13 @@ on:
         branches:
             - trunk
 
+
 jobs:
+    # Build job
     build:
         runs-on: ubuntu-latest
+        permissions:
+            contents: write      # to deploy to Pages
 
         steps:
             - name: Checkout code
@@ -19,3 +23,4 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./out
+                
