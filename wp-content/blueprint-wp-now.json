@@ -3,9 +3,9 @@
 	"landingPage": "/wp-admin/edit.php?post_type=page",
 	"preferredVersions": {
 		"wp": "latest",
-		"php": "7.4"
+		"php": "8.0"
 	},
-	"login": false,
+	"login": true,
 	"steps": [
 		{
 			"step": "installTheme",
@@ -42,14 +42,7 @@
                         "pluginZipFile": {
                                 "resource": "wordpress.org/plugins",
                                 "slug": "simply-static"
-                        },
-			"options": {
-				"activate": false
-			}
-                },
-                {
-                        "step": "activatePlugin",
-                        "pluginPath": "simply-static/simply-static.php"
+                        }
                 },
                 {
                         "step": "activatePlugin",
