@@ -15,6 +15,15 @@
 			}
 		},
 		{
+			"step": "mkdir",
+			"path": "/wordpress/wp-content/mu-plugins"
+		},
+		{
+			"step": "writeFile",
+			"path": "/wordpress/wp-content/mu-plugins/0-hide-admin-bar.php",
+			"data": "<?php add_filter( 'show_admin_bar', '__return_false' ); "
+		},
+		{
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "wordpress.org/plugins",
@@ -28,10 +37,23 @@
 				"slug": "gutenberg"
 			}
 		},
-		{
-			"step": "writeFile",
-			"path": "wp-content/mu-plugins/0-docs.php",
-			"data": "<?php require __DIR__ . '/../plugins/wp-docs-plugin/plugin.php'; "
-		}
+                {
+                        "step": "installPlugin",
+                        "pluginZipFile": {
+                                "resource": "wordpress.org/plugins",
+                                "slug": "simply-static"
+                        },
+			"options": {
+				"activate": false
+			}
+                },
+                {
+                        "step": "activatePlugin",
+                        "pluginPath": "simply-static/simply-static.php"
+                },
+                {
+                        "step": "activatePlugin",
+                        "pluginPath": "wp-docs-plugin/plugin.php"
+                }
 	]
 }
