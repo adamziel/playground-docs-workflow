@@ -37,16 +37,24 @@
 				"slug": "gutenberg"
 			}
 		},
-                {
-                        "step": "installPlugin",
-                        "pluginZipFile": {
-                                "resource": "wordpress.org/plugins",
-                                "slug": "simply-static"
-                        }
-                },
-                {
-                        "step": "activatePlugin",
-                        "pluginPath": "wp-docs-plugin/plugin.php"
-                }
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "wordpress.org/plugins",
+				"slug": "simply-static"
+			}
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "wp-docs-plugin/plugin.php"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "export-static-site/export-static-site.php"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php'; export_static_site( '/output/export.zip' );"
+		}
 	]
 }

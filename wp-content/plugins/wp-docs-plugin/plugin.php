@@ -37,30 +37,6 @@ add_filter('allowed_redirect_hosts', function ($deprecated = '') {
     return array ();
 });
 
-
-/**
- * Static site generation endpoints
- */
-add_action('parse_request', function ($wp) {
-    if (str_starts_with($_SERVER['REQUEST_URI'], '/sitemap/')) {
-        header('Content-Type: application/json');
-        echo json_encode(get_index_of_all_pages());
-        exit;
-    }
-    if (str_starts_with($_SERVER['REQUEST_URI'], '/zip-wp-files/')) {
-        zip_wp_files(ABSPATH.'/wp.zip');
-        rename(ABSPATH.'/wp.zip', ABSPATH.'/wp-content/wp.zip');
-        header('Content-Type: application/json');
-        echo json_encode(array('ok'));
-        exit;
-    }
-    if (str_starts_with($_SERVER['REQUEST_URI'], '/logout/')) {
-        wp_logout();
-        header('Location: /');
-        exit;
-    }
-});
-
 function initialize_docs_plugin() {
     if(get_option('docs_populated')) {
         // Prevent collisions between the initial create_db_pages_from_html_files call
@@ -203,56 +179,6 @@ add_action('save_post_page', function ($post_id) {
     rename($tmpPath, HTML_PAGES_PATH);
 });
 
-function get_index_of_all_pages() {
-    $frontpage_id = get_option('page_on_front');
-    $pages = [];
-    foreach (array('page', 'page') as $page_type) {
-        $pages = array_merge($pages, get_pages(
-            array(
-                'post_status' => 'publish',
-                'posts_per_page' => -1,
-                'post_type' => $page_type
-            )
-        ));
-    }
-
-    $sitemap = [];
-    // Loop through pages and print URLs
-    foreach($pages as $page) {
-        $sitemap[] = [
-            'url' => get_permalink($page->ID),
-            'title' => $page->post_title,
-            'isFrontPage' => $page->ID == $frontpage_id,
-        ];
-    }
-    return $sitemap;
-}
-
-function zip_wp_files($target_path) {
-    // Zip wp-content and wp-includes
-    $zip = new ZipArchive();
-    if ($zip->open($target_path, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
-        echo 'Failed to create zip file';
-        exit(1);
-    }
-
-    foreach(['wp-content', 'wp-includes'] as $dir) {
-        $files = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(ABSPATH . '/' . $dir),
-            RecursiveIteratorIterator::LEAVES_ONLY
-        );
-
-        foreach ($files as $name => $file) {
-            if (!$file->isDir() && pathinfo($file->getRealPath(), PATHINFO_EXTENSION) !== 'php') {
-                $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen(ABSPATH));
-                $zip->addFile($filePath, $relativePath);
-            }
-        }
-    }
-
-    $zip->close();
-}
 
 function create_db_pages_from_html_files($dir, $parent_id = 0) {
     $indexFilePath = $dir . '/index.html';
