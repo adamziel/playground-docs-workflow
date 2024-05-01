@@ -27,11 +27,7 @@ https://github.com/adamziel/playground-docs-workflow/assets/205419/5d06d8b8-cd9f
 To start a local server with the documentation site, run:
     
 ```bash
-# Warning: This removes all your local changes, be sure to commit
-#          them before running this command. This is needed because
-#          of wp-now limitations that will be fixed in the future.
-git stash -u 
-npx @wp-now/wp-now@latest start
+bash start-server.sh
 ```
 
 You'll need node.js and npm installed.
@@ -39,11 +35,9 @@ You'll need node.js and npm installed.
 Once you're done editing the documentation, commit your changes as follows:
 
 ```bash
-git add wp-content/html-pages wp-content/uploads wp-content/themes/playground-docs
+git add wp-content
 git commit -a
 ```
-
-**It is important to avoid running just `git add .` as wp-now creates a lot of files in the `wp-content` directory that you don't want to commit. This is a known issue and will be fixed in the future.**
 
 And then submit a Pull Request to the repository.
 
