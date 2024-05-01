@@ -11,7 +11,7 @@
 	<atom:link href="http://127.0.0.1/hello-world/feed/?simply_static_page=48" rel="self" type="application/rss+xml" />
 	<link>/hello-world/</link>
 	<description></description>
-	<lastBuildDate>Wed, 01 May 2024 21:25:15 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 01 May 2024 21:39:52 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
@@ -23,7 +23,7 @@
 		<link>/hello-world/#comment-1</link>
 
 		<dc:creator><![CDATA[A WordPress Commenter]]></dc:creator>
-		<pubDate>Wed, 01 May 2024 21:25:15 +0000</pubDate>
+		<pubDate>Wed, 01 May 2024 21:39:52 +0000</pubDate>
 		<guid isPermaLink="false">http://playground.internal/?p=1#comment-1</guid>
 
 					<description><![CDATA[Hi, this is a comment.
