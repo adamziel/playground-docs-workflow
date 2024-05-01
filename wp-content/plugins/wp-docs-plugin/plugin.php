@@ -167,16 +167,9 @@ add_action('save_post_page', function ($post_id) {
         return;
     }
     
-    // Don't delete the files upfront. Save the new files to a temporary
-    // directory and then replace the existing directory with the new one
-    // to prevent data loss on error.
-    $tmpPath = HTML_PAGES_PATH . '.tmp';
-    if (file_exists($tmpPath)) {
-        docs_plugin_deltree($tmpPath);
-    }
-    save_db_pages_as_html($tmpPath);
     docs_plugin_deltree(HTML_PAGES_PATH);
-    rename($tmpPath, HTML_PAGES_PATH);
+    mkdir(HTML_PAGES_PATH);
+    save_db_pages_as_html(HTML_PAGES_PATH);
 });
 
 
@@ -348,6 +341,8 @@ function docs_plugin_deltree($path) {
             unlink($file->getRealPath());
         }
     }
+
+    rmdir($path);
 }
 
 /**
