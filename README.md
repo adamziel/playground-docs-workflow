@@ -16,7 +16,7 @@ This is an attempt to create a buildless Documentation Contributor Workflow that
 
 Click here to try it:
 
-[<kbd> <br>Edit the Documentation<br> </kbd>](https://playground.wordpress.net/?gh-ensure-auth=yes&ghexport-repo-url=https%3A%2F%2Fgithub.com%2Fadamziel%2Fplayground-docs-workflow&ghexport-content-type=custom-paths&ghexport-path=plugins/wp-docs-plugin&ghexport-path=themes/playground-docs&ghexport-path=html-pages&ghexport-path=uploads&ghexport-path=blueprint.json&ghexport-path=blueprint-wp-now.json&ghexport-commit-message=Documentation+update&ghexport-playground-root=/wordpress/wp-content&ghexport-repo-root=/wp-content&blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Fadamziel%2Fplayground-docs-workflow%2Ftrunk%2Fwp-content%2Fblueprint.json&ghexport-pr-action=create&ghexport-allow-include-zip=no).
+[<kbd> <br>Edit the Documentation<br> </kbd>](https://playground.wordpress.net/?gh-ensure-auth=yes&ghexport-repo-url=https%3A%2F%2Fgithub.com%2Fadamziel%2Fplayground-docs-workflow&ghexport-content-type=custom-paths&ghexport-path=plugins/wp-docs-plugin&ghexport-path=plugins/export-static-site&ghexport-path=themes/playground-docs&ghexport-path=html-pages&ghexport-path=uploads&ghexport-path=blueprint-browser.json&ghexport-path=blueprint-serve.json&ghexport-path=blueprint-static-site.json&ghexport-commit-message=Documentation+update&ghexport-playground-root=/wordpress/wp-content&ghexport-repo-root=/wp-content&blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2Fadamziel%2Fplayground-docs-workflow%2Ftrunk%2Fwp-content%blueprint-browser.json&ghexport-pr-action=create&ghexport-allow-include-zip=no).
 
 It should load the doc pages from the `html-pages` directory and the media attachments from `uploads`. This video demonstrates it:
 
