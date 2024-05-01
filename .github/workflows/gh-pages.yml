@@ -19,11 +19,14 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+            - name: 'Install bun'
+              run: |
+                  curl -fsSL https://bun.sh/install | bash
             - name: Generate static site
-              run: PATH_PREFIX=/$(echo ${{ env.REPO }} | cut -d'/' -f2)/ node generate-static-site.js
+              run: PATH="${PATH}:${HOME}/.bun/bin" bash build-static-site.sh
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v4
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./out
+                publish_dir: ./output
                 
