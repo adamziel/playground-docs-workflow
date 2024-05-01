@@ -1,9 +1,7 @@
 #!/bin/bash
 
 mkdir -p output
-bun \
-    --config=/Users/cloudnik/.bunfig.toml \
-    ../playground/packages/playground/cli/src/cli.ts \
+bunx @wp-playground/cli@latest \
     run-blueprint \
     --mount=./wp-content/plugins/wp-docs-plugin:/wordpress/wp-content/plugins/wp-docs-plugin \
     --mount=./wp-content/plugins/export-static-site:/wordpress/wp-content/plugins/export-static-site \
@@ -13,4 +11,8 @@ bun \
     --mount=./output:/output \
     --blueprint=./wp-content/blueprint-static-site.json \
     --wp=6.5 \
-    --php=8.0 \
+    --php=8.0 
+
+cd output
+unzip export.zip
+rm export.zip
