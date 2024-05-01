@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkcreate_block_theme=globalThis.webpackChunkcreate_block_theme||[]).push([[169],{4169:(e,t,r)=>{r.r(t),r.d(t,{GPOS:()=>c});var s=r(197);class c extends s.L{constructor(e,t){super(e,t,"GPOS")}getLookup(e){return super.getLookup(e,"GPOS")}}}}]);
