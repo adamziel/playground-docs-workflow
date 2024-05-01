@@ -183,10 +183,15 @@ add_action('save_post_page', function ($post_id) {
 function create_db_pages_from_html_files($dir, $parent_id = 0) {
     $indexFilePath = $dir . '/index.html';
     if(file_exists($indexFilePath)) {
-        $parent_id = create_db_page_from_html_file(new SplFileInfo($indexFilePath), $parent_id);
+        $parent_id = create_db_page_from_html_file(
+            new SplFileInfo($indexFilePath),
+            $parent_id,
+            get_order_from_filename(basename($dir))
+        );
     }
 
-    foreach (scandir($dir) as $file) {
+    $files = scandir($dir);
+    foreach ($files as $file) {
         if ($file === '.' || $file === '..' || $file === 'index.html') {
             continue;
         }
@@ -195,16 +200,25 @@ function create_db_pages_from_html_files($dir, $parent_id = 0) {
         if (is_dir($filePath)) {
             create_db_pages_from_html_files($filePath, $parent_id);
         } else if (pathinfo($file, PATHINFO_EXTENSION) === 'html') {
-            create_db_page_from_html_file(new SplFileInfo($filePath), $parent_id);
+            create_db_page_from_html_file(
+                new SplFileInfo($filePath), 
+                $parent_id,
+                get_order_from_filename(basename($filePath))
+            );
         }
     }
 }
 
-function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
+function get_order_from_filename($filename) {
+    if(preg_match('/^(\d+)_/', $filename, $matches)) {
+        return $matches[1];
+    }
+    return 0;
+}
+
+function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0, $order = 0) {
     $content = file_get_contents($file->getRealPath());
-    // Add a comment to prevent this failure:
-    // 'PHP Fatal error:  Uncaught ValueError: strpos(): Argument #3 ($offset) must be contained in argument #1 ($haystack)
-    $p = new Playground_Post_Export_Processor($content . '<!-- -->'); 
+    $p = new Playground_Post_Export_Processor($content);
     $p->next_tag();
     if($p->get_tag() === 'H1') {
         $p->set_bookmark('start');
@@ -214,7 +228,11 @@ function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
         // Removing the tag doesn't affect the whitespace that follows, so
         // we need to trim the content or else we'll start accumulating leading
         // newlines.
-        $content = trim($p->get_updated_html());
+        try {
+            $content = trim($p->get_updated_html());
+        } catch(ValueError $e) {
+            $content = '';
+        }
         // Replace placeholder site URLs with the URL of the current site.
         // @TODO: This is very naive, let's actually parse the block 
         //        markup and the HTML markup and make these replacements
@@ -237,11 +255,8 @@ function create_db_page_from_html_file(SplFileInfo $file, $parent_id = 0) {
         'post_author' => get_current_user_id(),
         'post_type' => 'page',
         'post_parent' => $parent_id,
+        'menu_order' => $order
     );
-
-    if(preg_match('/^(\d+)_/', $file->getFilename(), $matches)) {
-        $post_data['menu_order'] = $matches[1];
-    }
     
     $page_id = wp_insert_post($post_data);
     if("0" == get_option('page_on_front')) {

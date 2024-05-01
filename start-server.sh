@@ -1,4 +1,14 @@
 #!/bin/bash
 
-bun --config=/Users/cloudnik/.bunfig.toml /Users/cloudnik/www/Automattic/core/plugins/playground/packages/playground/cli/src/cli.ts start --mount=./wp-content/plugins/wp-docs-plugin:/wordpress/wp-content/plugins/wp-docs-plugin --mount=./wp-content/html-pages:/wordpress/wp-content/html-pages --mount=./wp-content/uploads:/wordpress/wp-content/uploads --mount=./wp-content/themes/playground-docs:/wordpress/wp-content/themes/playground-docs --blueprint=./wp-content/blueprint-wp-now.json --wp=6.5
-
+mkdir -p output
+bunx @wp-playground/cli@latest \
+    server \
+    --mount=./wp-content/plugins/wp-docs-plugin:/wordpress/wp-content/plugins/wp-docs-plugin \
+    --mount=./wp-content/plugins/export-static-site:/wordpress/wp-content/plugins/export-static-site \
+    --mount=./wp-content/html-pages:/wordpress/wp-content/html-pages \
+    --mount=./wp-content/uploads:/wordpress/wp-content/uploads \
+    --mount=./wp-content/themes/playground-docs:/wordpress/wp-content/themes/playground-docs \
+    --mount=./output:/output \
+    --blueprint=./wp-content/blueprint-serve.json \
+    --wp=6.5 \
+    --php=8.0 
