@@ -8,6 +8,13 @@
 	"login": true,
 	"steps": [
 		{
+			"step": "defineWpConfigConsts",
+			"consts": {
+				"SIMPLY_STATIC_DESTINATION_URL_TYPE": "relative",
+				"SIMPLY_STATIC_RELATIVE_PATH": "/playground-docs-workflow"
+			}
+		},
+		{
 			"step": "installTheme",
 			"themeZipFile": {
 				"resource": "wordpress.org/themes",
