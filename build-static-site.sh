@@ -9,7 +9,7 @@ bunx @wp-playground/cli@latest \
     --mount=./wp-content/uploads:/wordpress/wp-content/uploads \
     --mount=./wp-content/themes/playground-docs:/wordpress/wp-content/themes/playground-docs \
     --mount=./output:/output \
-    --blueprint=./wp-content/blueprint-static-site.json \
+    --blueprint=./blueprint-static-site.json \
     --wp=6.5 \
     --php=8.0 
 

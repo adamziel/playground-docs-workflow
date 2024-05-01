@@ -2,7 +2,7 @@
 	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
 	"landingPage": "/wp-admin/edit.php?post_type=page",
 	"preferredVersions": {
-		"wp": "latest",
+		"wp": "6.5",
 		"php": "8.0"
 	},
 	"login": true,
@@ -31,30 +31,8 @@
 			}
 		},
 		{
-			"step": "installPlugin",
-			"pluginZipFile": {
-				"resource": "wordpress.org/plugins",
-				"slug": "gutenberg"
-			}
-		},
-		{
-			"step": "installPlugin",
-			"pluginZipFile": {
-				"resource": "wordpress.org/plugins",
-				"slug": "simply-static"
-			}
-		},
-		{
 			"step": "activatePlugin",
 			"pluginPath": "wp-docs-plugin/plugin.php"
-		},
-		{
-			"step": "activatePlugin",
-			"pluginPath": "export-static-site/export-static-site.php"
-		},
-		{
-			"step": "runPHP",
-			"code": "<?php require '/wordpress/wp-load.php'; export_static_site( '/output/export.zip' );"
 		}
 	]
 }
