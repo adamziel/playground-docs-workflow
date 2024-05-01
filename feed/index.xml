@@ -10,9 +10,9 @@
 <channel>
 	<title>My WordPress Website</title>
 	<atom:link href="http://127.0.0.1/feed/?simply_static_page=13" rel="self" type="application/rss+xml" />
-	<link>/</link>
+	<link>/playground-docs-workflow/</link>
 	<description></description>
-	<lastBuildDate>Wed, 01 May 2024 21:53:10 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 01 May 2024 22:15:02 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -21,11 +21,11 @@
 	<generator>https://wordpress.org/?v=6.5.2</generator>
 	<item>
 		<title>Hello world!</title>
-		<link>/hello-world/</link>
-					<comments>/hello-world/#comments</comments>
+		<link>/playground-docs-workflow/hello-world/</link>
+					<comments>/playground-docs-workflow/hello-world/#comments</comments>
 		
 		<dc:creator><![CDATA[admin]]></dc:creator>
-		<pubDate>Wed, 01 May 2024 21:53:10 +0000</pubDate>
+		<pubDate>Wed, 01 May 2024 22:15:02 +0000</pubDate>
 				<category><![CDATA[Uncategorized]]></category>
 		<guid isPermaLink="false">http://playground.internal/?p=1</guid>
 
@@ -34,7 +34,7 @@
 <p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>/hello-world/feed/</wfw:commentRss>
+					<wfw:commentRss>/playground-docs-workflow/hello-world/feed/</wfw:commentRss>
 			<slash:comments>1</slash:comments>
 		
 		
