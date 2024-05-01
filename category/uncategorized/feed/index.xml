@@ -12,7 +12,7 @@
 	<atom:link href="http://127.0.0.1/category/uncategorized/feed/?simply_static_page=56" rel="self" type="application/rss+xml" />
 	<link>/playground-docs-workflow/</link>
 	<description></description>
-	<lastBuildDate>Wed, 01 May 2024 22:19:40 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 01 May 2024 22:22:25 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -25,7 +25,7 @@
 					<comments>/playground-docs-workflow/hello-world/#comments</comments>
 		
 		<dc:creator><![CDATA[admin]]></dc:creator>
-		<pubDate>Wed, 01 May 2024 22:19:40 +0000</pubDate>
+		<pubDate>Wed, 01 May 2024 22:22:25 +0000</pubDate>
 				<category><![CDATA[Uncategorized]]></category>
 		<guid isPermaLink="false">http://playground.internal/?p=1</guid>
 
